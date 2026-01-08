@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif: Hukum Dasar Kimia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f7ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .tab-button {
+            padding: 18px 25px;
+            background-color: white;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-grow: 1;
+            text-align: center;
+            color: #555;
+        }
+        
+        .tab-button:hover {
+            background-color: #e8f0fe;
+            color: #1a73e8;
+        }
+        
+        .tab-button.active {
+            background-color: #1a73e8;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        h2 {
+            color: #1a73e8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e8f0fe;
+        }
+        
+        h3 {
+            color: #0d47a1;
+            margin: 25px 0 15px 0;
+        }
+        
+        .law-card {
+            background-color: #f8fbff;
+            border-left: 5px solid #1a73e8;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 10px 10px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .law-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .law-card h4 {
+            color: #1a73e8;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .law-card h4 i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .example-box {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .problem-box {
+            background-color: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .solution-box {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+            display: none;
+        }
+        
+        .solution-box.show {
+            display: block;
+            animation: slideDown 0.5s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .formula {
+            background-color: #fff3e0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: 2px dashed #ff9800;
+        }
+        
+        .interactive-area {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .quiz-container {
+            background-color: #f8fbff;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .quiz-question {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .quiz-option {
+            display: block;
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            background-color: #e8f0fe;
+            border-color: #1a73e8;
+        }
+        
+        .quiz-option.selected {
+            background-color: #bbdefb;
+            border-color: #1a73e8;
+        }
+        
+        .quiz-option.correct {
+            background-color: #c8e6c9;
+            border-color: #4caf50;
+        }
+        
+        .quiz-option.incorrect {
+            background-color: #ffcdd2;
+            border-color: #f44336;
+        }
+        
+        .quiz-feedback {
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .quiz-feedback.correct {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            display: block;
+        }
+        
+        .quiz-feedback.incorrect {
+            background-color: #ffebee;
+            border-left: 5px solid #f44336;
+            display: block;
+        }
+        
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .score-display {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1a73e8;
+            margin-top: 20px;
+        }
+        
+        .highlight {
+            background-color: #fff9c4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        .diagram {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        .reaction-equation {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+        }
+        
+        .step-box {
+            background-color: #e3f2fd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 5px solid #2196f3;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #0d47a1;
+            margin-bottom: 8px;
+        }
+        
+        .calculation {
+            background-color: #f5f5f5;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .tab-button {
+                flex-basis: 100%;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .tab-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-flask"></i> Hukum Dasar Kimia & Konsep Mol</h1>
+            <p>Media Pembelajaran Interaktif dengan Contoh Soal dan Pembahasan</p>
+        </header>
+        
+        <div class="nav-tabs">
+            <button class="tab-button active" data-tab="intro">Pendahuluan</button>
+            <button class="tab-button" data-tab="laws">Hukum Dasar</button>
+            <button class="tab-button" data-tab="mol">Konsep Mol</button>
+            <button class="tab-button" data-tab="stoikiometri">Stoikiometri</button>
+            <button class="tab-button" data-tab="rumus">Rumus Empiris & Molekul</button>
+            <button class="tab-button" data-tab="quiz">Kuis Interaktif</button>
+        </div>
+        
+        <!-- Tab Pendahuluan -->
+        <div id="intro" class="tab-content active">
+            <h2><i class="fas fa-book-open"></i> Pendahuluan</h2>
+            <p>Hukum dasar kimia merupakan fondasi dalam memahami stoikiometri (perhitungan kimia). Hukum-hukum ini menjelaskan prinsip-prinsip dasar yang mengatur reaksi kimia, perubahan materi, dan hubungan kuantitatif antara zat-zat yang terlibat dalam reaksi.</p>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-balance-scale"></i> Hukum-Hukum Dasar Kimia</h4>
+                <p>Ada lima hukum dasar kimia yang perlu dipahami:</p>
+                <ol>
+                    <li><strong>Hukum Lavoisier</strong> (Hukum Kekekalan Massa)</li>
+                    <li><strong>Hukum Proust</strong> (Hukum Perbandingan Tetap)</li>
+                    <li><strong>Hukum Dalton</strong> (Hukum Kelipatan Berganda)</li>
+                    <li><strong>Hukum Gay-Lussac</strong> (Hukum Perbandingan Volume)</li>
+                    <li><strong>Hipotesis Avogadro</strong></li>
+                </ol>
+            </div>
+            
+            <h3>Tujuan Pembelajaran</h3>
+            <p>Setelah mempelajari materi ini, diharapkan Anda dapat:</p>
+            <ul>
+                <li>Memahami dan menjelaskan hukum-hukum dasar kimia</li>
+                <li>Menerapkan konsep mol dalam perhitungan kimia</li>
+                <li>Menyelesaikan masalah stoikiometri reaksi</li>
+                <li>Menentukan rumus empiris dan molekul senyawa</li>
+                <li>Menghitung massa, volume, dan jumlah partikel zat</li>
+            </ul>
+            
+            <div class="interactive-area">
+                <h3><i class="fas fa-play-circle"></i> Mulai Belajar</h3>
+                <p>Gunakan menu di atas untuk menjelajahi materi. Setiap bagian dilengkapi dengan penjelasan, contoh soal, dan pembahasan lengkap.</p>
+                <button id="start-learning">Mulai Jelajahi Hukum Dasar</button>
+            </div>
+        </div>
+        
+        <!-- Tab Hukum Dasar -->
+        <div id="laws" class="tab-content">
+            <h2><i class="fas fa-gavel"></i> Hukum-Hukum Dasar Kimia</h2>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-weight-hanging"></i> 1. Hukum Lavoisier (Hukum Kekekalan Massa)</h4>
+                <p><strong>Pernyataan:</strong> "Massa zat sebelum dan sesudah reaksi adalah tetap dalam sistem tertutup."</p>
+                <p>Artinya, dalam reaksi kimia, massa zat tidak berubah. Massa reaktan sama dengan massa produk.</p>
+                
+                <div class="example-box">
+                    <p><strong>Contoh:</strong> Ketika 2 gram hidrogen bereaksi dengan 16 gram oksigen, akan dihasilkan 18 gram air. Massa total sebelum reaksi (2g + 16g = 18g) sama dengan massa total setelah reaksi (18g).</p>
+                </div>
+                
+                <div class="problem-box">
+                    <p><strong>Soal 1:</strong> Dalam wadah tertutup, 4 gram karbon bereaksi dengan 10,67 gram oksigen menghasilkan karbon dioksida. Berapa massa karbon dioksida yang dihasilkan?</p>
+                    <button class="show-solution" data-problem="1">Tampilkan Pembahasan</button>
+                </div>
+                
+                <div class="solution-box" id="solution-1">
+                    <p><strong>Pembahasan:</strong></p>
+                    <p>Berdasarkan Hukum Lavoisier (Kekekalan Massa):</p>
+                    <p>Massa sebelum reaksi = Massa setelah reaksi</p>
+                    <p>Massa C + Massa O₂ = Massa CO₂</p>
+                    <p>4 g + 10,67 g = 14,67 g</p>
+                    <p>Jadi, massa CO₂ yang dihasilkan adalah <strong>14,67 gram</strong>.</p>
+                </div>
+            </div>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-chart-pie"></i> 2. Hukum Proust (Hukum Perbandingan Tetap)</h4>
+                <p><strong>Pernyataan:</strong> "Perbandingan massa unsur-unsur pembentuk suatu senyawa selalu tetap."</p>
+                <p>Artinya, suatu senyawa selalu tersusun dari unsur-unsur dengan perbandingan massa yang tetap.</p>
+                
+                <div class="example-box">
+                    <p><strong>Contoh:</strong> Dalam senyawa FeS, perbandingan massa Fe : S selalu 7 : 4. Jika terdapat 7 gram Fe, pasti terdapat 4 gram S.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <p><strong>Soal 2:</strong> Pada pembentukan senyawa air (H₂O), perbandingan massa H : O = 1 : 8. Jika tersedia 3 gram hidrogen, berapa gram oksigen yang dibutuhkan untuk membentuk air secara sempurna?</p>
+                    <button class="show-solution" data-problem="2">Tampilkan Pembahasan</button>
+                </div>
+                
+                <div class="solution-box" id="solution-2">
+                    <p><strong>Pembahasan:</strong></p>
+                    <p>Berdasarkan Hukum Proust (Perbandingan Tetap):</p>
+                    <p>Perbandingan massa H : O = 1 : 8</p>
+                    <p>Jika massa H = 3 gram, maka massa O = (8/1) × 3 gram = 24 gram</p>
+                    <p>Jadi, dibutuhkan <strong>24 gram oksigen</strong> untuk bereaksi dengan 3 gram hidrogen membentuk air.</p>
+                </div>
+            </div>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-sort-amount-up"></i> 3. Hukum Dalton (Hukum Kelipatan Berganda)</h4>
+                <p><strong>Pernyataan:</strong> "Bila dua unsur dapat membentuk dua senyawa atau lebih, dan massa salah satu unsur tetap, maka massa unsur lainnya akan berbanding sebagai bilangan bulat sederhana."</p>
+                
+                <div class="example-box">
+                    <p><strong>Contoh:</strong> Unsur C dan O dapat membentuk CO dan CO₂. Dengan massa C tetap, perbandingan massa O pada CO : CO₂ adalah 1 : 2.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <p><strong>Soal 3:</strong> Nitrogen dan oksigen dapat membentuk dua senyawa. Senyawa A mengandung 7 gram nitrogen bergabung dengan 8 gram oksigen. Senyawa B mengandung 7 gram nitrogen bergabung dengan 16 gram oksigen. Tunjukkan bahwa data ini sesuai dengan Hukum Dalton!</p>
+                    <button class="show-solution" data-problem="3">Tampilkan Pembahasan</button>
+                </div>
+                
+                <div class="solution-box" id="solution-3">
+                    <p><strong>Pembahasan:</strong></p>
+                    <p>Berdasarkan Hukum Dalton (Kelipatan Berganda):</p>
+                    <p>Massa nitrogen pada kedua senyawa sama (7 gram)</p>
+                    <p>Massa oksigen pada senyawa A = 8 gram</p>
+                    <p>Massa oksigen pada senyawa B = 16 gram</p>
+                    <p>Perbandingan massa oksigen A : B = 8 : 16 = 1 : 2</p>
+                    <p>Karena perbandingannya merupakan bilangan bulat sederhana (1:2), maka data ini sesuai dengan Hukum Dalton.</p>
+                </div>
+            </div>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-chart-bar"></i> 4. Hukum Gay-Lussac & Hipotesis Avogadro</h4>
+                <p><strong>Hukum Gay-Lussac:</strong> "Pada suhu dan tekanan yang sama, volume gas-gas yang bereaksi dan hasil reaksi berbanding sebagai bilangan bulat sederhana."</p>
+                <p><strong>Hipotesis Avogadro:</strong> "Pada suhu dan tekanan yang sama, semua gas dengan volume yang sama mengandung jumlah molekul yang sama."</p>
+                
+                <div class="example-box">
+                    <p><strong>Contoh:</strong> Reaksi N₂ + 3H₂ → 2NH₃. Perbandingan volume N₂ : H₂ : NH₃ adalah 1 : 3 : 2. Jika volume N₂ = 20 L, maka volume H₂ = 60 L, dan volume NH₃ = 40 L.</p>
+                </div>
+                
+                <div class="problem-box">
+                    <p><strong>Soal 4:</strong> Pada reaksi pembentukan amonia: N₂(g) + 3H₂(g) → 2NH₃(g). Jika direaksikan 10 liter gas nitrogen, berapa liter gas hidrogen yang diperlukan dan berapa liter amonia yang dihasilkan (pada suhu dan tekanan yang sama)?</p>
+                    <button class="show-solution" data-problem="4">Tampilkan Pembahasan</button>
+                </div>
+                
+                <div class="solution-box" id="solution-4">
+                    <p><strong>Pembahasan:</strong></p>
+                    <p>Berdasarkan Hukum Gay-Lussac (Perbandingan Volume):</p>
+                    <p>Perbandingan koefisien = perbandingan volume (pada suhu & tekanan sama)</p>
+                    <p>N₂ : H₂ : NH₃ = 1 : 3 : 2</p>
+                    <p>Jika volume N₂ = 10 L, maka:</p>
+                    <p>Volume H₂ = (3/1) × 10 L = 30 L</p>
+                    <p>Volume NH₃ = (2/1) × 10 L = 20 L</p>
+                    <p>Jadi, diperlukan <strong>30 L gas hidrogen</strong> dan dihasilkan <strong>20 L gas amonia</strong>.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Konsep Mol -->
+        <div id="mol" class="tab-content">
+            <h2><i class="fas fa-calculator"></i> Konsep Mol dan Perhitungan Kimia</h2>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-atom"></i> Pengertian Mol</h4>
+                <p><strong>Mol</strong> adalah satuan jumlah partikel (atom, molekul, ion) dalam suatu zat. Satu mol zat mengandung <span class="highlight">6,02 × 10²³</span> partikel (bilangan Avogadro).</p>
+                
+                <div class="formula">
+                    <p>1 mol = 6,02 × 10²³ partikel</p>
+                    <p>n = jumlah mol, x = jumlah partikel, L = tetapan Avogadro</p>
+                    <p>x = n × L</p>
+                </div>
+            </div>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-weight"></i> Massa Molar</h4>
+                <p><strong>Massa molar (mₘ)</strong> adalah massa satu mol zat, dinyatakan dalam g/mol. Massa molar sama dengan massa atom relatif (Ar) untuk unsur atau massa molekul relatif (Mr) untuk senyawa.</p>
+                
+                <div class="example-box">
+                    <p><strong>Contoh:</strong> CO₂ memiliki Mr = 44 g/mol (Ar C = 12 g/mol, Ar O = 16 g/mol, jadi 12 + (2×16) = 44 g/mol).</p>
+                </div>
+                
+                <div class="formula">
+                    <p>massa = n × massa molar</p>
+                    <p>m = n × mₘ</p>
+                </div>
+                
+                <div class="problem-box">
+                    <p><strong>Soal 5:</strong> Berapa jumlah molekul yang terdapat dalam 11 gram CO₂? (Ar C = 12, O = 16)</p>
+                    <button class="show-solution" data-problem="5">Tampilkan Pembahasan</button>
+                </div>
+                
+                <div class="solution-box" id="solution-5">
+                    <p><strong>Pembahasan:</strong></p>
+                    <p>Langkah-langkah penyelesaian:</p>
+                    <div class="step-box">
+                        <div class="step-title">Langkah 1: Hitung Mr CO₂</div>
+                        <div class="calculation">Mr CO₂ = Ar C + (2 × Ar O) = 12 + (2 × 16) = 44 g/mol</div>
+                    </div>
+                    
+                    <div class="step-box">
+                        <div class="step-title">Langkah 2: Hitung jumlah mol CO₂</div>
+                        <div class="calculation">n CO₂ = massa / Mr = 11 g / 44 g/mol = 0,25 mol</div>
+                    </div>
+                    
+                    <div class="step-box">
+                        <div class="step-title">Langkah 3: Hitung jumlah molekul CO₂</div>
+                        <div class="calculation">Jumlah molekul = n × L = 0,25 mol × 6,02×10²³ molekul/mol = 1,505×10²³ molekul</div>
+                    </div>
+                    
+                    <p>Jadi, dalam 11 gram CO₂ terdapat <strong>1,505 × 10²³ molekul</strong>.</p>
+                </div>
+            </div>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-expand-arrows-alt"></i> Volume Molar Gas</h4>
+                <p><strong>Volume molar (Vₘ)</strong> adalah volume yang ditempati oleh 1 mol gas pada suhu dan tekanan tertentu.</p>
+                
+                <div class="formula">
+                    <p>Pada STP (0°C, 1 atm): Vₘ = 22,4 L/mol</p>
+                    <p>Pada RTP (25°C, 1 atm): Vₘ = 24 L/mol</p>
+                    <p>V = n × Vₘ</p>
+                </div>
+                
+                <div class="problem-box">
+                    <p><strong>Soal 6:</strong> Berapa volume dari 0,5 mol gas nitrogen (N₂) pada keadaan STP?</p>
+                    <button class="show-solution" data-problem="6">Tampilkan Pembahasan</button>
+                </div>
+                
+                <div class="solution-box" id="solution-6">
+                    <p><strong>Pembahasan:</strong></p>
+                    <p>Pada keadaan STP (Standard Temperature and Pressure):</p>
+                    <p>Volume molar (Vₘ) = 22,4 L/mol</p>
+                    <p>Volume gas = n × Vₘ</p>
+                    <p>Volume N₂ = 0,5 mol × 22,4 L/mol = 11,2 L</p>
+                    <p>Jadi, volume 0,5 mol gas N₂ pada keadaan STP adalah <strong>11,2 liter</strong>.</p>
+                </div>
+            </div>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-vial"></i> Kemolaran Larutan</h4>
+                <p><strong>Kemolaran (M)</strong> adalah jumlah mol zat terlarut dalam 1 liter larutan.</p>
+                
+                <div class="formula">
+                    <p>M = n / V</p>
+                    <p>n = M × V</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Contoh:</strong> Larutan HCl 1,0 M berarti terdapat 1 mol HCl dalam 1 liter larutan.</p>
+                </div>
+            </div>
+            
+            <h3>Diagram Konsep Mol</h3>
+            <div style="text-align: center; margin: 20px 0;">
+                <div style="display: inline-block; padding: 20px; background-color: #e8f0fe; border-radius: 10px;">
+                    <div style="font-weight: bold; color: #1a73e8; margin-bottom: 10px;">PARTIKEL</div>
+                    <div style="margin: 10px 0;">⇅ (dibagi/dikali 6,02×10²³)</div>
+                    <div style="font-weight: bold; color: #1a73e8; margin: 10px 0;">MOL</div>
+                    <div style="display: flex; justify-content: space-around; margin-top: 15px;">
+                        <div>
+                            <div>× massa molar</div>
+                            <div style="font-weight: bold; color: #1a73e8; margin-top: 10px;">MASSA</div>
+                        </div>
+                        <div>
+                            <div>× volume molar</div>
+                            <div style="font-weight: bold; color: #1a73e8; margin-top: 10px;">VOLUME</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Stoikiometri -->
+        <div id="stoikiometri" class="tab-content">
+            <h2><i class="fas fa-exchange-alt"></i> Stoikiometri Reaksi dan Senyawa</h2>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-recycle"></i> Stoikiometri Reaksi</h4>
+                <p>Stoikiometri reaksi mempelajari hubungan kuantitatif antara pereaksi dan produk dalam reaksi kimia. Perbandingan koefisien dalam persamaan reaksi merupakan perbandingan mol zat-zat yang terlibat.</p>
+                
+                <div class="example-box">
+                    <p><strong>Contoh:</strong> Reaksi: 4KO₂(s) + 2CO₂(g) → 2K₂CO₃(s) + 3O₂(g)</p>
+                    <p>Perbandingan koefisien: KO₂ : CO₂ : K₂CO₃ : O₂ = 4 : 2 : 2 : 3</p>
+                    <p>Artinya, perbandingan mol zat-zat tersebut juga 4 : 2 : 2 : 3</p>
+                </div>
+                
+                <div class="formula">
+                    <p>Langkah penyelesaian masalah stoikiometri:</p>
+                    <p>1. Tulis persamaan reaksi setara</p>
+                    <p>2. Konversi semua data ke dalam satuan mol</p>
+                    <p>3. Gunakan perbandingan koefisien untuk menghitung mol zat yang ditanyakan</p>
+                    <p>4. Konversi hasil ke satuan yang diminta</p>
+                </div>
+                
+                <div class="problem-box">
+                    <p><strong>Soal 7:</strong> Berapa massa aluminium oksida (Al₂O₃) yang dihasilkan dari reaksi 5,4 gram aluminium dengan oksigen berlebih? (Reaksi: 4Al + 3O₂ → 2Al₂O₃; Ar Al = 27, O = 16)</p>
+                    <button class="show-solution" data-problem="7">Tampilkan Pembahasan</button>
+                </div>
+                
+                <div class="solution-box" id="solution-7">
+                    <p><strong>Pembahasan:</strong></p>
+                    <div class="step-box">
+                        <div class="step-title">Langkah 1: Tulis persamaan reaksi setara</div>
+                        <div class="calculation">4Al + 3O₂ → 2Al₂O₃</div>
+                    </div>
+                    
+                    <div class="step-box">
+                        <div class="step-title">Langkah 2: Hitung mol Al</div>
+                        <div class="calculation">n Al = massa / Ar = 5,4 g / 27 g/mol = 0,2 mol</div>
+                    </div>
+                    
+                    <div class="step-box">
+                        <div class="step-title">Langkah 3: Gunakan perbandingan koefisien untuk hitung mol Al₂O₃</div>
+                        <div class="calculation">Perbandingan Al : Al₂O₃ = 4 : 2 = 2 : 1</div>
+                        <div class="calculation">n Al₂O₃ = (1/2) × n Al = (1/2) × 0,2 mol = 0,1 mol</div>
+                    </div>
+                    
+                    <div class="step-box">
+                        <div class="step-title">Langkah 4: Hitung massa Al₂O₃</div>
+                        <div class="calculation">Mr Al₂O₃ = (2 × 27) + (3 × 16) = 54 + 48 = 102 g/mol</div>
+                        <div class="calculation">massa Al₂O₃ = n × Mr = 0,1 mol × 102 g/mol = 10,2 g</div>
+                    </div>
+                    
+                    <p>Jadi, massa aluminium oksida yang dihasilkan adalah <strong>10,2 gram</strong>.</p>
+                </div>
+            </div>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-tachometer-alt"></i> Pereaksi Pembatas</h4>
+                <p><strong>Pereaksi pembatas</strong> adalah pereaksi yang habis lebih dahulu dalam reaksi, sehingga membatasi jumlah produk yang dihasilkan.</p>
+                
+                <div class="example-box">
+                    <p><strong>Contoh:</strong> Jika 1,5 mol Zn direaksikan dengan 2 mol HCl:</p>
+                    <p>Zn + 2HCl → ZnCl₂ + H₂</p>
+                    <p>Perbandingan mol/koefisien: Zn = 1,5/1 = 1,5; HCl = 2/2 = 1</p>
+                    <p>HCl memiliki nilai terkecil (1), jadi HCl adalah pereaksi pembatas.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Rumus Empiris & Molekul -->
+        <div id="rumus" class="tab-content">
+            <h2><i class="fas fa-puzzle-piece"></i> Rumus Empiris dan Molekul</h2>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-atom"></i> Pengertian Rumus Empiris dan Molekul</h4>
+                <p><strong>Rumus empiris</strong> adalah rumus perbandingan paling sederhana dari atom-atom penyusun senyawa.</p>
+                <p><strong>Rumus molekul</strong> adalah rumus senyawa yang nyata sesuai dengan jumlah atom-atom unsur penyusun senyawa.</p>
+                
+                <div class="example-box">
+                    <p><strong>Contoh:</strong> Rumus molekul glukosa adalah C₆H₁₂O₆, sedangkan rumus empirisnya adalah CH₂O (perbandingan paling sederhana).</p>
+                </div>
+                
+                <div class="formula">
+                    <p>Rumus molekul = (rumus empiris)ₙ</p>
+                    <p>n = Mr senyawa / Mr rumus empiris</p>
+                </div>
+            </div>
+            
+            <div class="law-card">
+                <h4><i class="fas fa-calculator"></i> Langkah-langkah Menentukan Rumus Empiris</h4>
+                <ol>
+                    <li>Tentukan massa atau persen massa setiap unsur dalam senyawa</li>
+                    <li>Konversi massa ke dalam satuan mol (massa/Ar)</li>
+                    <li>Tentukan perbandingan mol dengan membagi semua nilai mol dengan nilai terkecil</li>
+                    <li>Bulatkan perbandingan menjadi bilangan bulat sederhana</li>
+                    <li>Tulis rumus empiris berdasarkan perbandingan atom</li>
+                </ol>
+            </div>
+            
+            <div class="problem-box">
+                <p><strong>Soal 8:</strong> Suatu senyawa mengandung 40% karbon, 6,67% hidrogen, dan 53,33% oksigen. Jika massa molekul relatif (Mr) senyawa tersebut adalah 180, tentukan rumus empiris dan rumus molekulnya! (Ar C = 12, H = 1, O = 16)</p>
+                <button class="show-solution" data-problem="8">Tampilkan Pembahasan</button>
+            </div>
+            
+            <div class="solution-box" id="solution-8">
+                <p><strong>Pembahasan:</strong></p>
+                <div class="step-box">
+                    <div class="step-title">Langkah 1: Asumsikan massa senyawa = 100 g</div>
+                    <div class="calculation">Massa C = 40% × 100 g = 40 g</div>
+                    <div class="calculation">Massa H = 6,67% × 100 g = 6,67 g</div>
+                    <div class="calculation">Massa O = 53,33% × 100 g = 53,33 g</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 2: Hitung mol masing-masing unsur</div>
+                    <div class="calculation">n C = 40 g / 12 g/mol = 3,33 mol</div>
+                    <div class="calculation">n H = 6,67 g / 1 g/mol = 6,67 mol</div>
+                    <div class="calculation">n O = 53,33 g / 16 g/mol = 3,33 mol</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 3: Tentukan perbandingan mol (bagi dengan nilai terkecil)</div>
+                    <div class="calculation">Nilai terkecil = 3,33</div>
+                    <div class="calculation">C : H : O = 3,33/3,33 : 6,67/3,33 : 3,33/3,33 = 1 : 2 : 1</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 4: Tentukan rumus empiris</div>
+                    <div class="calculation">Rumus empiris = CH₂O</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 5: Hitung Mr rumus empiris</div>
+                    <div class="calculation">Mr CH₂O = 12 + (2×1) + 16 = 30</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 6: Hitung n (faktor pengali)</div>
+                    <div class="calculation">n = Mr senyawa / Mr rumus empiris = 180 / 30 = 6</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 7: Tentukan rumus molekul</div>
+                    <div class="calculation">Rumus molekul = (CH₂O)₆ = C₆H₁₂O₆</div>
+                </div>
+                
+                <p>Jadi, rumus empiris senyawa tersebut adalah <strong>CH₂O</strong> dan rumus molekulnya adalah <strong>C₆H₁₂O₆</strong>.</p>
+            </div>
+            
+            <div class="problem-box">
+                <p><strong>Soal 9:</strong> Suatu sampel senyawa hidrokarbon mengandung 4,8 gram karbon dan 1,2 gram hidrogen. Jika Mr senyawa tersebut adalah 30, tentukan rumus molekul senyawa tersebut! (Ar C = 12, H = 1)</p>
+                <button class="show-solution" data-problem="9">Tampilkan Pembahasan</button>
+            </div>
+            
+            <div class="solution-box" id="solution-9">
+                <p><strong>Pembahasan:</strong></p>
+                <div class="step-box">
+                    <div class="step-title">Langkah 1: Hitung mol masing-masing unsur</div>
+                    <div class="calculation">n C = 4,8 g / 12 g/mol = 0,4 mol</div>
+                    <div class="calculation">n H = 1,2 g / 1 g/mol = 1,2 mol</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 2: Tentukan perbandingan mol (bagi dengan nilai terkecil)</div>
+                    <div class="calculation">Nilai terkecil = 0,4</div>
+                    <div class="calculation">C : H = 0,4/0,4 : 1,2/0,4 = 1 : 3</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 3: Tentukan rumus empiris</div>
+                    <div class="calculation">Rumus empiris = CH₃</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 4: Hitung Mr rumus empiris</div>
+                    <div class="calculation">Mr CH₃ = 12 + (3×1) = 15</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 5: Hitung n (faktor pengali)</div>
+                    <div class="calculation">n = Mr senyawa / Mr rumus empiris = 30 / 15 = 2</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 6: Tentukan rumus molekul</div>
+                    <div class="calculation">Rumus molekul = (CH₃)₂ = C₂H₆</div>
+                </div>
+                
+                <p>Jadi, rumus molekul senyawa tersebut adalah <strong>C₂H₆</strong> (etana).</p>
+            </div>
+            
+            <div class="problem-box">
+                <p><strong>Soal 10:</strong> Pada pembakaran sempurna 1,5 gram suatu senyawa hidrokarbon (hanya mengandung C dan H) dihasilkan 4,4 gram CO₂ dan 2,7 gram H₂O. Tentukan rumus empiris senyawa tersebut! (Ar C = 12, H = 1, O = 16)</p>
+                <button class="show-solution" data-problem="10">Tampilkan Pembahasan</button>
+            </div>
+            
+            <div class="solution-box" id="solution-10">
+                <p><strong>Pembahasan:</strong></p>
+                <div class="step-box">
+                    <div class="step-title">Langkah 1: Hitung massa C dalam CO₂</div>
+                    <div class="calculation">Mr CO₂ = 44 g/mol, Ar C = 12</div>
+                    <div class="calculation">Massa C dalam CO₂ = (12/44) × 4,4 g = 1,2 g</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 2: Hitung massa H dalam H₂O</div>
+                    <div class="calculation">Mr H₂O = 18 g/mol, Ar H = 1 (dalam H₂O ada 2 atom H)</div>
+                    <div class="calculation">Massa H dalam H₂O = (2/18) × 2,7 g = 0,3 g</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 3: Hitung mol C dan H</div>
+                    <div class="calculation">n C = 1,2 g / 12 g/mol = 0,1 mol</div>
+                    <div class="calculation">n H = 0,3 g / 1 g/mol = 0,3 mol</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 4: Tentukan perbandingan mol</div>
+                    <div class="calculation">Nilai terkecil = 0,1</div>
+                    <div class="calculation">C : H = 0,1/0,1 : 0,3/0,1 = 1 : 3</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Langkah 5: Tentukan rumus empiris</div>
+                    <div class="calculation">Rumus empiris = CH₃</div>
+                </div>
+                
+                <p>Jadi, rumus empiris senyawa hidrokarbon tersebut adalah <strong>CH₃</strong>.</p>
+            </div>
+        </div>
+        
+        <!-- Tab Kuis -->
+        <div id="quiz" class="tab-content">
+            <h2><i class="fas fa-question-circle"></i> Kuis Interaktif Hukum Dasar Kimia</h2>
+            <p>Uji pemahaman Anda dengan mengerjakan 10 soal pilihan ganda berikut. Pilih jawaban yang paling tepat!</p>
+            
+            <div class="quiz-container">
+                <div id="quiz-progress" style="margin-bottom: 20px; font-weight: bold; color: #1a73e8;">Soal 1 dari 10</div>
+                <div class="quiz-question" id="question-text">Memuat pertanyaan...</div>
+                
+                <div id="quiz-options">
+                    <!-- Opsi jawaban akan diisi oleh JavaScript -->
+                </div>
+                
+                <div class="quiz-feedback" id="quiz-feedback">
+                    <!-- Feedback akan diisi oleh JavaScript -->
+                </div>
+                
+                <div class="quiz-nav">
+                    <button id="prev-question" disabled>Soal Sebelumnya</button>
+                    <button id="next-question">Soal Berikutnya</button>
+                </div>
+                
+                <div class="score-display" id="score-display" style="display: none;">
+                    Skor Anda: <span id="score-value">0</span> dari 10
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="submit-quiz" style="background-color: #4caf50;">Kumpulkan Kuis</button>
+                    <button id="restart-quiz" style="background-color: #ff9800; margin-left: 10px;">Mulai Ulang</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Media Pembelajaran Interaktif Hukum Dasar Kimia & Konsep Mol</p>
+            <p>Materi disusun berdasarkan dokumen "Hukum Dasar Kimia dan Konsep Mol" | © 2023</p>
+        </div>
+    </div>
+
+    <script>
+        // Data kuis
+        const quizData = [
+            {
+                question: "Hukum Lavoisier menyatakan bahwa...",
+                options: [
+                    "Perbandingan massa unsur-unsur dalam senyawa selalu tetap",
+                    "Massa zat sebelum dan sesudah reaksi adalah tetap",
+                    "Volume gas-gas yang bereaksi berbanding sebagai bilangan bulat sederhana",
+                    "Dua unsur dapat membentuk lebih dari satu senyawa",
+                    "Pada suhu dan tekanan sama, volume gas sama mengandung molekul sama"
+                ],
+                correct: 1,
+                explanation: "Hukum Lavoisier dikenal sebagai Hukum Kekekalan Massa yang menyatakan bahwa massa zat sebelum dan sesudah reaksi adalah tetap dalam sistem tertutup."
+            },
+            {
+                question: "Dalam senyawa FeS, perbandingan massa Fe : S adalah...",
+                options: [
+                    "4 : 7",
+                    "7 : 4", 
+                    "3 : 2",
+                    "2 : 3",
+                    "1 : 1"
+                ],
+                correct: 1,
+                explanation: "Hukum Proust (Perbandingan Tetap) menyatakan bahwa dalam senyawa FeS, perbandingan massa Fe:S selalu 7:4."
+            },
+            {
+                question: "Jika dua unsur dapat membentuk lebih dari satu senyawa, dan massa satu unsur tetap, maka massa unsur lainnya berbanding sebagai bilangan bulat sederhana. Pernyataan ini adalah...",
+                options: [
+                    "Hukum Lavoisier",
+                    "Hukum Proust",
+                    "Hukum Dalton",
+                    "Hukum Gay-Lussac",
+                    "Hipotesis Avogadro"
+                ],
+                correct: 2,
+                explanation: "Ini adalah pernyataan dari Hukum Dalton (Hukum Kelipatan Berganda)."
+            },
+            {
+                question: "Pada suhu dan tekanan yang sama, volume gas-gas yang bereaksi dan hasil reaksi berbanding sebagai bilangan bulat sederhana. Hukum ini dikemukakan oleh...",
+                options: [
+                    "Lavoisier",
+                    "Proust",
+                    "Dalton",
+                    "Gay-Lussac",
+                    "Avogadro"
+                ],
+                correct: 3,
+                explanation: "Hukum Gay-Lussac menyatakan bahwa pada suhu dan tekanan yang sama, volume gas-gas yang bereaksi dan hasil reaksi berbanding sebagai bilangan bulat sederhana."
+            },
+            {
+                question: "Pada keadaan STP (0°C, 1 atm), volume 1 mol gas adalah...",
+                options: [
+                    "20 L",
+                    "22,4 L",
+                    "24 L",
+                    "25 L",
+                    "27 L"
+                ],
+                correct: 1,
+                explanation: "Pada keadaan STP (Standard Temperature and Pressure), volume molar gas adalah 22,4 L/mol."
+            },
+            {
+                question: "Tetapan Avogadro bernilai...",
+                options: [
+                    "6,02 × 10²²",
+                    "6,02 × 10²³",
+                    "6,02 × 10²⁴",
+                    "6,02 × 10²⁵",
+                    "6,02 × 10²⁶"
+                ],
+                correct: 1,
+                explanation: "Tetapan Avogadro (L) bernilai 6,02 × 10²³ partikel/mol, yaitu jumlah partikel dalam 1 mol zat."
+            },
+            {
+                question: "Rumus empiris dari senyawa C₆H₁₂O₆ adalah...",
+                options: [
+                    "C₆H₁₂O₆",
+                    "C₃H₆O₃",
+                    "C₂H₄O₂",
+                    "CH₂O",
+                    "CHO"
+                ],
+                correct: 3,
+                explanation: "Rumus empiris adalah perbandingan paling sederhana. C₆H₁₂O₆ disederhanakan menjadi CH₂O (dibagi 6)."
+            },
+            {
+                question: "Dalam reaksi: N₂ + 3H₂ → 2NH₃, jika volume N₂ yang bereaksi adalah 10 L, maka volume NH₃ yang dihasilkan adalah...",
+                options: [
+                    "10 L",
+                    "20 L",
+                    "30 L",
+                    "40 L",
+                    "50 L"
+                ],
+                correct: 1,
+                explanation: "Berdasarkan Hukum Gay-Lussac, perbandingan volume N₂ : NH₃ = 1 : 2. Jadi jika N₂ = 10 L, maka NH₃ = 20 L."
+            },
+            {
+                question: "Pereaksi yang habis lebih dahulu dalam suatu reaksi disebut...",
+                options: [
+                    "Pereaksi berlebih",
+                    "Pereaksi pembatas",
+                    "Pereaksi utama",
+                    "Pereaksi samping",
+                    "Pereaksi katalis"
+                ],
+                correct: 1,
+                explanation: "Pereaksi pembatas adalah pereaksi yang habis lebih dahulu dalam reaksi, sehingga membatasi jumlah produk yang dihasilkan."
+            },
+            {
+                question: "Jika 2 gram hidrogen bereaksi sempurna dengan 16 gram oksigen, massa air yang dihasilkan adalah...",
+                options: [
+                    "14 g",
+                    "16 g",
+                    "18 g",
+                    "20 g",
+                    "22 g"
+                ],
+                correct: 2,
+                explanation: "Berdasarkan Hukum Lavoisier (Kekekalan Massa), massa sebelum reaksi = massa setelah reaksi. Massa H₂ + O₂ = 2g + 16g = 18g, jadi massa H₂O yang dihasilkan = 18g."
+            }
+        ];
+
+        // Variabel global untuk kuis
+        let currentQuestion = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let quizCompleted = false;
+
+        // Fungsi untuk berpindah tab
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Hapus kelas active dari semua tab button dan content
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Tambahkan kelas active ke tab yang diklik
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                
+                // Jika berpindah ke tab kuis, reset atau muat kuis
+                if (tabId === 'quiz') {
+                    loadQuestion();
+                }
+            });
+        });
+
+        // Fungsi untuk memulai pembelajaran
+        document.getElementById('start-learning').addEventListener('click', () => {
+            document.querySelector('.tab-button[data-tab="laws"]').click();
+        });
+
+        // ==================== TOMBOL TAMPILKAN PEMBAHASAN ====================
+        document.querySelectorAll('.show-solution').forEach(button => {
+            button.addEventListener('click', function() {
+                const problemId = this.getAttribute('data-problem');
+                const solutionBox = document.getElementById(`solution-${problemId}`);
+                
+                // Toggle tampilan pembahasan
+                if (solutionBox.classList.contains('show')) {
+                    solutionBox.classList.remove('show');
+                    this.textContent = 'Tampilkan Pembahasan';
+                } else {
+                    solutionBox.classList.add('show');
+                    this.textContent = 'Sembunyikan Pembahasan';
+                }
+            });
+        });
+
+        // ==================== FUNGSI KUIS ====================
+        function loadQuestion() {
+            const question = quizData[currentQuestion];
+            document.getElementById('question-text').textContent = question.question;
+            document.getElementById('quiz-progress').textContent = `Soal ${currentQuestion + 1} dari ${quizData.length}`;
+            
+            // Reset tampilan kuis
+            document.getElementById('quiz-feedback').className = 'quiz-feedback';
+            document.getElementById('quiz-feedback').style.display = 'none';
+            document.getElementById('submit-quiz').style.display = 'inline-block';
+            document.getElementById('score-display').style.display = 'none';
+            
+            // Tampilkan opsi jawaban
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'quiz-option';
+                if (userAnswers[currentQuestion] === index) {
+                    optionElement.classList.add('selected');
+                }
+                
+                optionElement.innerHTML = `${String.fromCharCode(65 + index)}. ${option}`;
+                optionElement.dataset.index = index;
+                
+                optionElement.addEventListener('click', () => {
+                    // Hapus seleksi dari semua opsi
+                    document.querySelectorAll('.quiz-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Tambahkan seleksi ke opsi yang diklik
+                    optionElement.classList.add('selected');
+                    
+                    // Simpan jawaban pengguna
+                    userAnswers[currentQuestion] = index;
+                    
+                    // Tampilkan feedback jika sudah menjawab
+                    showFeedback();
+                });
+                
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Update tombol navigasi
+            document.getElementById('prev-question').disabled = currentQuestion === 0;
+            document.getElementById('next-question').disabled = currentQuestion === quizData.length - 1;
+            document.getElementById('next-question').textContent = currentQuestion === quizData.length - 1 ? 'Selesai' : 'Soal Berikutnya';
+        }
+
+        function showFeedback() {
+            if (userAnswers[currentQuestion] === null) return;
+            
+            const question = quizData[currentQuestion];
+            const feedbackDiv = document.getElementById('quiz-feedback');
+            const isCorrect = userAnswers[currentQuestion] === question.correct;
+            
+            feedbackDiv.className = isCorrect ? 'quiz-feedback correct' : 'quiz-feedback incorrect';
+            feedbackDiv.innerHTML = `
+                <strong>${isCorrect ? 'Benar!' : 'Salah.'}</strong> ${question.explanation}
+                ${!isCorrect ? `<br><strong>Jawaban yang benar: ${String.fromCharCode(65 + question.correct)}. ${question.options[question.correct]}</strong>` : ''}
+            `;
+            feedbackDiv.style.display = 'block';
+        }
+
+        function calculateScore() {
+            let score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === quizData[index].correct) {
+                    score++;
+                }
+            });
+            return score;
+        }
+
+        function showFinalScore() {
+            const score = calculateScore();
+            const scoreDiv = document.getElementById('score-display');
+            document.getElementById('score-value').textContent = score;
+            scoreDiv.style.display = 'block';
+            quizCompleted = true;
+        }
+
+        // Event listener untuk navigasi kuis
+        document.getElementById('prev-question').addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        });
+
+        document.getElementById('next-question').addEventListener('click', () => {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else if (currentQuestion === quizData.length - 1) {
+                // Jika di soal terakhir, kumpulkan kuis
+                document.getElementById('submit-quiz').click();
+            }
+        });
+
+        document.getElementById('submit-quiz').addEventListener('click', () => {
+            // Periksa apakah semua soal telah dijawab
+            const unanswered = userAnswers.filter(answer => answer === null).length;
+            
+            if (unanswered > 0 && !confirm(`Masih ada ${unanswered} soal yang belum dijawab. Yakin ingin mengumpulkan?`)) {
+                return;
+            }
+            
+            // Hitung skor dan tampilkan
+            showFinalScore();
+            
+            // Tampilkan feedback untuk soal terakhir
+            showFeedback();
+            
+            // Sembunyikan tombol submit
+            document.getElementById('submit-quiz').style.display = 'none';
+            
+            // Ubah teks tombol next
+            document.getElementById('next-question').disabled = true;
+        });
+
+        document.getElementById('restart-quiz').addEventListener('click', () => {
+            // Reset kuis
+            currentQuestion = 0;
+            userAnswers = new Array(quizData.length).fill(null);
+            quizCompleted = false;
+            
+            // Muat ulang soal pertama
+            loadQuestion();
+        });
+
+        // Muat kuis pertama kali
+        loadQuestion();
+    </script>
+</body>
+</html>
